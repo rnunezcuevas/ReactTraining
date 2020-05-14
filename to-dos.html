@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
+</head>
+<body>
+
+<h1>WORK TO-DO's</h1>
+<h3>Enter text into the input field to add items to your list.</h3>
+<div class = center>
+
+    <p> Click the item to mark it as complete. </p>
+    <darkGreenText> Click the "X" to remove the item from your list.</p>
+    <input style="font-size:25px;" type="text" id="taskText" maxlength = "28" size = "28">
+    <button type="button" id="myButton" onClick="addTask()">Add</button><br>
+    <darkBlueItem id="darkBlueItem" ></darkBlueItem>
+</div>
+</body>
+</html>
+
+<script>
+var tasksArray = [];
+
+function addTask()
+{
+	
+	var task = document.getElementById("taskText").value;
+	tasksArray.push(task);
+    populateItems();
+	
+	
+}
+
+function populateItems()
+{
+	if(tasksArray.length>0)
+	{
+        var tasksText;
+	for(let z=0; z<tasksArray.length; z++)
+	{
+		console.log("valores: " + tasksArray[z]);
+		tasksText = (tasksText || "") + tasksArray[z] 
+		+ "<button type='button' id='delete" + z + "' onClick='deleteTask(" + z + ")'>X</button><br>"
+		+ "<br>";
+	}
+
+	document.getElementById("darkBlueItem").innerHTML = tasksText;
+	document.getElementById("taskText").value = "";
+	}
+	else
+	{
+		document.getElementById("darkBlueItem").innerHTML = "";
+	}
+	
+}
+
+function deleteTask(indexDelete)
+{
+	console.log("index: " + indexDelete);
+	tasksArray.splice(indexDelete, 1);
+	console.log("Array length: " + tasksArray.length);
+	populateItems();
+
+}
+</script>
